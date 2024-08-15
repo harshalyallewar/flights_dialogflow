@@ -1,9 +1,23 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
+
 
 dotenv.config();
 
 const app = express();
+
+app.use(
+    cors({
+      origin: [
+        "http://localhost:3000",
+        "https://ecomm-dashboard.onrender.com/",
+        "https://ecomm-dashboard-frontend.netlify.app/",
+      ],
+    })
+  );
+  app.use(express.json());
+  
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
