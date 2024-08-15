@@ -30,6 +30,7 @@ app.use((req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {
+    console.log(req.body);
   res.send("Harshal").sendStatus(200);
 });
 
