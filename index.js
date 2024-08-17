@@ -8,19 +8,35 @@ dotenv.config();
 const app = express();
 
 app.use(
-    cors({
-      origin: [
-        "http://localhost:3000",
-        "https://ecomm-dashboard.onrender.com/",
-        "https://ecomm-dashboard-frontend.netlify.app/",
-      ],
-    })
+  cors({
+    origin: "*", 
+  })
   );
+
   app.use(express.json());
   
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.post('/webhook', (req: Request, res: Response) => {
+  console.log(JSON.stringify(req.body, null, 2));
+
+  const fulfillmentResponse = {
+      fulfillmentMessages: [
+          {
+              text: {
+                  text: ['Response from Dialogflow CX Webhook'],
+                  redactedText: ['Response from Dialogflow CX Webhook']
+              }
+          }
+      ],
+      responseType: "ENTRY_PROMPT",
+      source: "VIRTUAL_AGENT"
+  };
+
+  res.json(fulfillmentResponse);
+});
 
 app.use((req, res, next) => {
   console.log(`Path ${req.path} with method ${req.method}`);
